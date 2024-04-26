@@ -3,49 +3,45 @@ import SwiftUI
 struct ContentView: View {
 @ObserfvedObject var viewModel = PostViewModel()
 var body: some View {
-List{ ForEach(viewModel.posts) { post in 
+List {
+      ForEach(viewModel.posts) { post in 
+NavigationLink  (destination: PostDetailView(post:post)) {
+ VStack(alignment: .leading) {
+   
+   Text(post.title)
+   .font(.headline)
 
-NavigationLink  (destination:
- PostDetailVBiew (post:post)){
- Vstack(alignment: .leading ) {
-
-Text(post.title)
-.font(.headline)
-Text(post.body)
-.font(.subheadline)
-.foregroundColor(.gray)
+  Text(post.body)
+   .font(.subheadline)
+   .foregroundColor(.gray)
+  }
  }
-
- }.onAppear {
- self.viewModel.fetchpostIfNeeded(item:self.viewModel.posts.last }
-
-}.navigationTitle("posts")
+ .onAppear {
+ self.viewModel.fetchPostsIfNeeded(item:self.viewModel.posts.last)
+ }
+ }.navigationTitle("posts")
 }
-
 }
-
 }
 }
 
-stuct PostDetailView : View {
+stuct PostDetailView: View {
   let post: Post
+ 
 var body: some View {
 VStack(alignment: .leading) {
+
  Text(post.title)
    .font(.title)
-.padding()
+   .padding()
 
 Text(post.body)
    .font(.body)
-.padding()
-
-Spacer()
-
-
+  .padding()
+ Spacer()
 }
 .navigationTitle(Text(post.title))
 }
-
 }
 
 #Preview {
